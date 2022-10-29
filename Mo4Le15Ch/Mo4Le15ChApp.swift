@@ -12,6 +12,7 @@ struct Mo4Le15ChApp: App {
     var body: some Scene {
         WindowGroup {
             BookListView()
+                .environmentObject(BookModel())
         }
     }
 }

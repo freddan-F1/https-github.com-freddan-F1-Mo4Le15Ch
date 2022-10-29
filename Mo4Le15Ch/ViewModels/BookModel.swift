@@ -14,9 +14,9 @@ class BookModel:ObservableObject {
     
     init() {
         self.books = DataService.GetLocalData()
-        for index in 0..<books.count {
-            books[index].image = "cover\(index + 1)"
         }
-    }
     
+    func TogggleIsFavourite(id:Int) {
+        books[id-1].isFavourite.toggle()
+    }
 }

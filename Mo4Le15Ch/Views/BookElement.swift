@@ -17,11 +17,17 @@ struct BookElement: View {
             Rectangle().foregroundColor(.white).cornerRadius(15)
                 .shadow(color: Color(.sRGB, white: 0, opacity: 0.5), radius: 10, x: -10, y: 10)
             VStack(alignment: .leading) {
-                Text(book.title).font(.title).fontWeight(.bold).padding(.bottom,5)
+                HStack {
+                    Text(book.title).font(.title).fontWeight(.bold).padding(.bottom,5).frame(width: 250,alignment: .leading)
+                    if book.isFavourite {
+                        Image(systemName: "star.fill").foregroundColor(.yellow).font(.title).padding(.bottom,10)
+                    }
+                }
                 Text(book.author).italic()
-                Image(book.image!).resizable().scaledToFill()
+                Image("cover\(book.id)").resizable().scaledToFill()
             }.frame(width: 300, height: 300, alignment: .center)
         }.frame(width: 340, height: 600, alignment: .center)
+            .foregroundColor(.black)
         
     }
 }

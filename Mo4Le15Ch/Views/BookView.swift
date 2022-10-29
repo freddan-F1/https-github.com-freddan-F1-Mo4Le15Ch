@@ -10,29 +10,36 @@ import SwiftUI
 struct BookView: View {
     
     var book:Book
-    @State var buttonimage = "star"
+    @EnvironmentObject var model:BookModel
+   
     @State var rating = 1
+    @State var buttonImage = "star"
     
     var body: some View {
         VStack {
+            
+        //MARK: Headline
             Text(book.title).font(.largeTitle).fontWeight(.heavy).padding(.bottom)
+            
+            //MARK: Swipeble bookimage
             VStack {
                 Text("Read Now!").font(.title)
-                Image(book.image!).resizable()
+                Image("cover\(book.id)").resizable()
             }.scaledToFit().frame(width: 280, height: 400, alignment: .bottom)
+            
+            
+            //MARK: Markbutton
             Text("Mark for later!")
                 .font(.title2)
                 .fontWeight(.bold).padding(.bottom)
             Button {
-                if self.buttonimage == "star" {
-                    self.buttonimage = "star.fill"
-                }
-                else {
-                    self.buttonimage = "star"
-                }
-            } label: {
-                Image(systemName: buttonimage).foregroundColor(.yellow)
+                model.TogggleIsFavourite(id: book.id)
+            }
+            label: {
+                Image(systemName: book.isFavourite ? "star.fill" : "star").foregroundColor(.yellow)
             }.font(.title).padding(.bottom,10)
+            
+            //Ratingpicker
             Text("Rate Text and More").font(.title2)
                 .fontWeight(.bold).padding(.bottom)
             Picker("", selection: $rating) {
@@ -50,8 +57,8 @@ struct BookView: View {
 
 struct BookView_Previews: PreviewProvider {
     static var previews: some View {
-        let a = BookModel()
-        
+        let a:BookModel = BookModel()
         BookView(book: a.books[1])
+            .environmentObject(BookModel())
     }
 }

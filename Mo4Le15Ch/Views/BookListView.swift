@@ -9,22 +9,33 @@ import SwiftUI
 
 struct BookListView: View {
     
-    @ObservedObject var book = BookModel()
+    @EnvironmentObject var book:BookModel
     
     var body: some View {
         
         VStack(alignment: .leading) {
             
-            //MARK: Headline
-            Text("My Library").font(.largeTitle).padding(.leading).fontWeight(.heavy)
-            
-            //MARK: List
-            ScrollView {
-                LazyVStack {
-                    ForEach(book.books) { b in
-                        BookElement(book: b).padding(.bottom)
+            NavigationView {
+                VStack {
+                    //MARK: Headline
+                    Text("My Library").font(.largeTitle).padding(.leading).fontWeight(.heavy)
+                    
+                    //MARK: List
+                    ScrollView {
+                        LazyVStack {
+                            ForEach(book.books) { b in
+                                
+                                NavigationLink {
+                                    BookView(book: b)
+                                } label: {
+                                    BookElement(book: b).padding(.bottom)
+                                }
+
+                            }
+                        }
                     }
                 }
+               
             }
         }
     }
@@ -32,6 +43,6 @@ struct BookListView: View {
 
 struct BookListView_Previews: PreviewProvider {
     static var previews: some View {
-        BookListView()
+        BookListView().environmentObject(BookModel())
     }
 }

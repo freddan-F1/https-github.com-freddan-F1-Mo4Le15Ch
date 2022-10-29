@@ -17,6 +17,5 @@ struct Book: Identifiable, Decodable {
     var rating:Int
     var id: Int
     var content:[String]
-    var image:String?
     
 }
