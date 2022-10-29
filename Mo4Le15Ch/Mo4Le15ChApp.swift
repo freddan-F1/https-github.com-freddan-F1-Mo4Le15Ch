@@ -11,7 +11,7 @@ import SwiftUI
 struct Mo4Le15ChApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            BookListView()
         }
     }
 }
